@@ -1,39 +1,10 @@
 <resources>
     <string name="app_name">FootballApps</string>
     <string name="title_football_club">Football Club</string>
-
-    <string-array name="club_name">
-        <item>Real Madrid C.F.</item>
-        <item>FC Barcelona</item>
-        <item>FC Bayern Muenchen</item>
-        <item>Manchester City FC</item>
-        <item>Manchester United FC</item>
-        <item>Chelsea FC</item>
-        <item>AC Milan</item>
-        <item>Arsenal FC</item>
-    </string-array>
-
-    <array name="club_image">
-        <item>@drawable/img_madrid</item>
-        <item>@drawable/img_barca</item>
-        <item>@drawable/img_bayern</item>
-        <item>@drawable/img_city</item>
-        <item>@drawable/img_mu</item>
-        <item>@drawable/img_chelsea</item>
-        <item>@drawable/img_acm</item>
-        <item>@drawable/img_arsenal</item>
-    </array>
-
-    <string-array name="club_description">
-        <item>Real Madrid C.F., is a professional football club based in Madrid, Spain. Real Madrid was recognised as the FIFA Club of the 20th Century on 11 December 2000, and received the FIFA Centennial Order of Merit on 20 May 2004. The club was also awarded Best European Club of the 20th Century by the IFFHS on 11 May 2010. In June 2017, the team succeeded in becoming the first club to win back to back Champions Leagues, then made it three in a row in May 2018, extending their lead atop the UEFA club rankings.</item>
-        <item>FC Barcelona  is a professional football club based in Barcelona, Catalonia, Spain.</item>
-        <item>FC Bayern Muenchen is a German sports club based in Munich, Bavaria (Bayern). It is best known for its professional football team, which plays in the Bundesliga, the top tier of the German football league system, and is the most successful club in German football history, having won a record 28 national titles and 18 national cups.</item>
-        <item>Manchester City FC is a football club in Manchester, England. Founded in 1880 as St. Mark\'s (West Gorton), it became Ardwick Association Football Club in 1887 and Manchester City in 1894.</item>
-        <item>Manchester United FC  is a professional football club based in Old Trafford, Greater Manchester, England, that competes in the Premier League, the top flight of English football.</item>
-        <item>Chelsea FC is a professional football club in London, England, that competes in the Premier League. Founded in 1905, the club\'s home ground since then has been Stamford Bridge.</item>
-        <item>AC Milan s a professional football club in Milan, Italy, founded in 1899.</item>
-        <item>Arsenal FC  is a professional football club based in Islington, London, England, that plays in the Premier League, the top flight of English football.</item>
-    </string-array>
-
-
+    <string name="btn_retry">Retry</string>
+    <string name="error_no_network_available">No Network Available</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_last_match">Last Match</string>
+    <string name="title_next_match">Next Match</string>
+    <string name="label_versus">vs</string>
 </resources>

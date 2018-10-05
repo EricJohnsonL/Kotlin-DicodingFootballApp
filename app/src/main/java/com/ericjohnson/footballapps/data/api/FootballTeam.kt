@@ -1,4 +1,4 @@
-package com.ericjohnson.footballapps.model
+package com.ericjohnson.footballapps.data.api
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

@@ -8,7 +8,7 @@ import android.view.Gravity
 import android.view.MenuItem
 import android.support.v7.widget.Toolbar
 import com.ericjohnson.footballapps.R
-import com.ericjohnson.footballapps.model.FootballTeam
+import com.ericjohnson.footballapps.data.api.FootballTeam
 import org.jetbrains.anko.*
 import org.jetbrains.anko.appcompat.v7.toolbar
 

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.ericjohnson.footballapps.R
-import com.ericjohnson.footballapps.model.FootballTeam
+import com.ericjohnson.footballapps.data.api.FootballTeam
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_football_team.view.*
 
@@ -23,7 +23,7 @@ class ListFootballClubAdapter(private val context: Context, private val datas: L
             ListFootballViewHolder(LayoutInflater.from(context).inflate(R.layout.item_football_team,
                     parent, false))
 
-    override fun getItemCount(): Int = datas.size
+    override fun getItemCount() = datas.size
 
 
     override fun onBindViewHolder(holder: ListFootballViewHolder, position: Int) {

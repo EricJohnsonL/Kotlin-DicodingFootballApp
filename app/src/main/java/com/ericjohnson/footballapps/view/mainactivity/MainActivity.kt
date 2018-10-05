@@ -1,51 +1,54 @@
 package com.ericjohnson.footballapps.view.mainactivity
 
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
 import com.ericjohnson.footballapps.R
-import com.ericjohnson.footballapps.adapter.ListFootballClubAdapter
-import com.ericjohnson.footballapps.model.FootballTeam
-import com.ericjohnson.footballapps.view.detailclub.DetailClubActivity
-import org.jetbrains.anko.*
-import org.jetbrains.anko.recyclerview.v7.recyclerView
+import com.ericjohnson.footballapps.adapter.SchedulePagerAdapter
+import com.ericjohnson.footballapps.utils.ScheduleType
+import com.ericjohnson.footballapps.view.schedule.ScheduleFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainView {
 
-    private var items: MutableList<FootballTeam> = mutableListOf()
+    private var mainPresenter: IMainPresenter<MainView> = MainPresenter()
+
+    private var titles: MutableList<String> = mutableListOf()
+
+    private var fragment: MutableList<ScheduleFragment> = mutableListOf()
+
+    private lateinit var schedulePagerAdapter: SchedulePagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MainActivityUI(initData()).setContentView(this)
-
+        setContentView(R.layout.activity_main)
+        setupViewPager()
+        onAttachView()
     }
 
-    class MainActivityUI(var items: MutableList<FootballTeam>) : AnkoComponent<MainActivity> {
-        override fun createView(ui: AnkoContext<MainActivity>) = with(ui) {
+    private fun setupViewPager() {
+        titles.add(getString(R.string.title_last_match))
+        titles.add(getString(R.string.title_next_match))
 
-            recyclerView{
-                backgroundColor = Color.WHITE
-                layoutManager = LinearLayoutManager(ctx, LinearLayoutManager.VERTICAL, false)
-                addItemDecoration(DividerItemDecoration(ctx, DividerItemDecoration.VERTICAL))
-                adapter = ListFootballClubAdapter(ctx, items) {
-                    startActivity<DetailClubActivity>("club" to it)
-                }
-            }
-        }
+        fragment.add(ScheduleFragment.newInstance(ScheduleType.PREVIOUS_EVENT))
+        fragment.add(ScheduleFragment.newInstance(ScheduleType.NEXT_EVENT))
 
+        schedulePagerAdapter = SchedulePagerAdapter(supportFragmentManager, titles, fragment)
+        vp_match_schedule.adapter = schedulePagerAdapter
+        vp_match_schedule.offscreenPageLimit = 0
+        tab_match_schedule.setupWithViewPager(vp_match_schedule)
     }
 
-    private fun initData(): MutableList<FootballTeam> {
-        val name = resources.getStringArray(R.array.club_name)
-        val image = resources.obtainTypedArray(R.array.club_image)
-        val desc = resources.getStringArray(R.array.club_description)
-        items.clear()
-        for (i in name.indices) {
-            items.add(FootballTeam(name[i], desc[i], image.getResourceId(i, 0)))
-        }
-        image.recycle()
-        return items
+    override fun onDestroy() {
+        super.onDestroy()
+        onDetachView()
     }
+
+    override fun onAttachView() {
+        mainPresenter.onAttach(this)
+    }
+
+    override fun onDetachView() {
+        mainPresenter.onDetach()
+    }
+
 }
