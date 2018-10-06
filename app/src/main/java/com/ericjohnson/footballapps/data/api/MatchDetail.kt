@@ -21,10 +21,10 @@ data class MatchDetail(
         var strAwayTeam: String? = null,
 
         @SerializedName("intHomeScore")
-        var intHomeScore: String? = "",
+        var intHomeScore: Int? = null,
 
         @SerializedName("intAwayScore")
-        var intAwayScore: String? = "",
+        var intAwayScore: Int? = null,
 
         @SerializedName("strHomeGoalDetails")
         var strHomeGoalDetails: String? = null,

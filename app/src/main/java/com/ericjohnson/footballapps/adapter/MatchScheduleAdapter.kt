@@ -35,7 +35,6 @@ class MatchScheduleAdapter(private val context: Context, private var datas: Muta
         notifyDataSetChanged()
     }
 
-
     class MatchScheduleViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
             LayoutContainer {
 
@@ -48,13 +47,21 @@ class MatchScheduleAdapter(private val context: Context, private var datas: Muta
 
             tv_date.text = datas.dateEvent
             tv_home_team.text = datas.strHomeTeam
-            tv_home_score.text = datas.intHomeScore
             tv_away_team.text = datas.strAwayTeam
-            tv_away_score.text = datas.intAwayScore
+            tv_home_score.text = when {
+                datas.intHomeScore == null -> "-"
+                else -> datas.intHomeScore.toString()
+            }
+
+            tv_away_score.text = when {
+                datas.intAwayScore == null -> "-"
+                else -> datas.intAwayScore.toString()
+            }
 
             itemView.setOnClickListener {
                 listener(datas)
             }
+
         }
     }
 

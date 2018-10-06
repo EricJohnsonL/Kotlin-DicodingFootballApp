@@ -2,10 +2,7 @@ package com.ericjohnson.footballapps.view.schedule
 
 import com.ericjohnson.footballapps.base.BasePresenter
 import com.ericjohnson.footballapps.data.api.response.MatchDetailResponse
-import com.ericjohnson.footballapps.interactor.GetMatchesInteractor
-import com.ericjohnson.footballapps.utils.ScheduleType
-import com.ericjohnson.footballapps.view.mainactivity.IMainPresenter
-import com.ericjohnson.footballapps.view.mainactivity.MainView
+import com.ericjohnson.footballapps.domain.GetMatchesInteractor
 
 /**
  * Created by johnson on 04/10/18.

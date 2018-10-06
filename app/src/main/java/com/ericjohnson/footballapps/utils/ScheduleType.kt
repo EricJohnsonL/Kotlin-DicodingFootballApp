@@ -8,7 +8,7 @@ import android.support.annotation.StringDef
 
 class ScheduleType {
     companion object {
-        val PREVIOUS_EVENT: String = "eventspastleague"
-        val NEXT_EVENT: String = "eventsnextleague"
+        const val PREVIOUS_EVENT: String = "eventspastleague"
+        const val NEXT_EVENT: String = "eventsnextleague"
     }
 }

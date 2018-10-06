@@ -1,10 +1,8 @@
-package com.ericjohnson.footballapps.interactor
+package com.ericjohnson.footballapps.domain
 
 import com.ericjohnson.footballapps.BuildConfig
-import com.ericjohnson.footballapps.data.api.MatchDetail
+import com.ericjohnson.footballapps.data.Interactor
 import com.ericjohnson.footballapps.data.api.response.MatchDetailResponse
-import com.ericjohnson.footballapps.data.api.setup.ApiRepository
-import com.ericjohnson.footballapps.data.api.setup.Interactor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,11 +13,11 @@ import retrofit2.Response
 
 class GetMatchesInteractor(private val getMatchesInteractorListener: GetMatchesInteractorListener) : Callback<MatchDetailResponse> {
 
-    private val getMatches: ApiRepository = Interactor.start()
+    private fun getInteractor(): Interactor = Interactor()
 
     lateinit var scheduleType: String
 
-    fun call() = getMatches.getMatches(scheduleType, BuildConfig.LEAGUE_ID).enqueue(this)
+    fun call() = getInteractor().getMatches(scheduleType, BuildConfig.LEAGUE_ID).enqueue(this)
 
     override fun onResponse(call: Call<MatchDetailResponse>, response: Response<MatchDetailResponse>) {
         if (response.isSuccessful) {

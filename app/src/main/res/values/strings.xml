@@ -2,7 +2,7 @@
     <string name="app_name">FootballApps</string>
     <string name="title_football_club">Football Club</string>
     <string name="btn_retry">Retry</string>
-    <string name="error_no_network_available">No Network Available</string>
+    <string name="error_load_data">Cannot fetch data</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_last_match">Last Match</string>
     <string name="title_next_match">Next Match</string>
