@@ -34,5 +34,11 @@
         <item name="textAllCaps">true</item>
     </style>
 
+    <style name="TitleTextAppearanceSmall" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
 
 </resources>

@@ -13,13 +13,14 @@ import com.ericjohnson.footballapps.R
 import com.ericjohnson.footballapps.adapter.MatchScheduleAdapter
 import com.ericjohnson.footballapps.data.api.MatchDetail
 import com.ericjohnson.footballapps.utils.AppConstants
+import com.ericjohnson.footballapps.view.matchDetail.MatchDetailActivity
 import kotlinx.android.synthetic.main.fragment_schedule.*
 import org.jetbrains.anko.support.v4.ctx
-import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.support.v4.startActivity
 
 class ScheduleFragment : Fragment(), ScheduleView, SwipeRefreshLayout.OnRefreshListener {
 
-    private var schedulePresenter: ISchedulePresenter<ScheduleView> = SchedulePresenter()
+    private val schedulePresenter: ISchedulePresenter<ScheduleView> = SchedulePresenter()
 
     private var scheduleType: String? = null
 
@@ -63,7 +64,9 @@ class ScheduleFragment : Fragment(), ScheduleView, SwipeRefreshLayout.OnRefreshL
         super.onViewCreated(view, savedInstanceState)
 
         srl_schedule.setOnRefreshListener(this)
-        adapter = MatchScheduleAdapter(ctx, mutableListOf()) { toast(it.strHomeTeam.toString()) }
+        adapter = MatchScheduleAdapter(ctx, mutableListOf()) {
+            startActivity<MatchDetailActivity>(AppConstants.KEY_MATCH_DETAIL to it)
+        }
         rv_schedule_list.layoutManager = LinearLayoutManager(ctx)
         rv_schedule_list.hasFixedSize()
         rv_schedule_list.adapter = adapter

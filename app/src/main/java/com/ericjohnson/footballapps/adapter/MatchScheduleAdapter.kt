@@ -3,11 +3,13 @@ package com.ericjohnson.footballapps.adapter
 import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
+import android.util.TimeUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ericjohnson.footballapps.R
 import com.ericjohnson.footballapps.data.api.MatchDetail
+import com.ericjohnson.footballapps.utils.TimeUtil
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_schedule.*
 
@@ -45,7 +47,7 @@ class MatchScheduleAdapter(private val context: Context, private var datas: Muta
                 else -> itemView.background = ContextCompat.getDrawable(itemView.context, R.color.grey)
             }
 
-            tv_date.text = datas.dateEvent
+            tv_date.text = TimeUtil.getFormattedDate(datas.dateEvent.toString())
             tv_home_team.text = datas.strHomeTeam
             tv_away_team.text = datas.strAwayTeam
             tv_home_score.text = when {

@@ -9,5 +9,5 @@ import com.google.gson.annotations.SerializedName
 data class TeamDetail(
 
         @SerializedName("strTeamBadge")
-        private var strTeamBadge: String? = null
+        var strTeamBadge: String? = null
 )

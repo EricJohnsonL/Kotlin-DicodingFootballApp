@@ -7,4 +7,14 @@
     <string name="title_last_match">Last Match</string>
     <string name="title_next_match">Next Match</string>
     <string name="label_versus">vs</string>
+    <string name="label_jornada">La Liga Jornada</string>
+    <string name="label_shoots">Shoots</string>
+    <string name="label_yellow_card">Yellow Card</string>
+    <string name="label_red_card">Red Card</string>
+    <string name="label_line_up">Line Up</string>
+    <string name="label_goalkeeper">Goalkeeper</string>
+    <string name="label_defender">Defender</string>
+    <string name="label_midfielder">Midfielder</string>
+    <string name="label_forward">Forward</string>
+    <string name="label_subtitutes">Subtitutes</string>
 </resources>

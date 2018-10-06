@@ -7,5 +7,7 @@ package com.ericjohnson.footballapps.utils
 class AppConstants {
     companion object {
         const val KEY_SCHEDULE_TYPE: String = "schedule_type"
+
+        const val KEY_MATCH_DETAIL: String = "match_detail"
     }
 }

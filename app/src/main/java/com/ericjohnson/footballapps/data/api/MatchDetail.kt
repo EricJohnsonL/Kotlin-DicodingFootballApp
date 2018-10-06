@@ -84,8 +84,12 @@ data class MatchDetail(
         var idAwayTeam: String? = null,
 
         @SerializedName("intHomeShots")
-        var intHomeShots: Int,
+        var intHomeShots: Int? = null,
 
         @SerializedName("intAwayShots")
-        var intAwayShots: Int
+        var intAwayShots: Int? = null,
+
+        @SerializedName("intRound")
+        var intRound: Int
+
 ) : Parcelable

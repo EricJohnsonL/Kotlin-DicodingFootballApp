@@ -10,5 +10,5 @@ import com.google.gson.annotations.SerializedName
 data class TeamDetailResponse(
 
         @SerializedName("teams")
-        private var teams: List<TeamDetail>? = null
+        var teams: MutableList<TeamDetail>
 )

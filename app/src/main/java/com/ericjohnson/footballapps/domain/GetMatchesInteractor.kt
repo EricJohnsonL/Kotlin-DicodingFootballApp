@@ -22,6 +22,8 @@ class GetMatchesInteractor(private val getMatchesInteractorListener: GetMatchesI
     override fun onResponse(call: Call<MatchDetailResponse>, response: Response<MatchDetailResponse>) {
         if (response.isSuccessful) {
             response.body()?.let { getMatchesInteractorListener.onGetMatchesSuccess(it) }
+        } else {
+            getMatchesInteractorListener.onGetMatchesFailed()
         }
     }
 
