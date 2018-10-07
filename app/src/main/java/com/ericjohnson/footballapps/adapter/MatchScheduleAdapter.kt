@@ -43,8 +43,8 @@ class MatchScheduleAdapter(private val context: Context, private var datas: Muta
         fun bind(datas: MatchDetail, listener: (MatchDetail) -> Unit) {
 
             when {
-                adapterPosition % 2 == 0 -> itemView.background = ContextCompat.getDrawable(itemView.context, R.color.white)
-                else -> itemView.background = ContextCompat.getDrawable(itemView.context, R.color.grey)
+                adapterPosition % 2 == 0 -> ll_schedule.background = ContextCompat.getDrawable(itemView.context, R.drawable.bg_ripple_white)
+                else -> ll_schedule.background = ContextCompat.getDrawable(itemView.context, R.drawable.bg_ripple_grey)
             }
 
             tv_date.text = TimeUtil.getFormattedDate(datas.dateEvent.toString())
