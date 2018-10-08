@@ -8,7 +8,6 @@ import kotlinx.android.parcel.Parcelize
  * Created by johnson on 04/10/18.
  */
 
-@Parcelize
 data class MatchDetail(
 
         @SerializedName("idEvent")
@@ -92,4 +91,4 @@ data class MatchDetail(
         @SerializedName("intRound")
         var intRound: Int
 
-) : Parcelable
+)

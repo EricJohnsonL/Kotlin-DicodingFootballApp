@@ -1,5 +1,6 @@
 package com.ericjohnson.footballapps.data.api.setup
 
+import com.ericjohnson.footballapps.data.api.MatchDetail
 import com.ericjohnson.footballapps.data.api.response.MatchDetailResponse
 import com.ericjohnson.footballapps.data.api.response.TeamDetailResponse
 import retrofit2.Call
@@ -18,4 +19,7 @@ interface ApiRepository {
 
     @GET("lookupteam.php")
     fun getTeamDetail(@Query("id") teamId: String): Call<TeamDetailResponse>
+
+    @GET("lookupevent.php")
+    fun getMatchDetail(@Query("id") matchId: String): Call<MatchDetailResponse>
 }

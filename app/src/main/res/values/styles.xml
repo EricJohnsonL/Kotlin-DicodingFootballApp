@@ -7,10 +7,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="CircularProgressDialog" parent="Theme.AppCompat.Light">
-        <item name="colorAccent">@color/colorPrimary</item>
-    </style>
-
     <style name="TabLayoutStyle" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">@color/white</item>
         <item name="tabIndicatorHeight">2dp</item>

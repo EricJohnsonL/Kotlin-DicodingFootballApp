@@ -1,5 +1,6 @@
 package com.ericjohnson.footballapps.data
 
+import com.ericjohnson.footballapps.data.api.MatchDetail
 import com.ericjohnson.footballapps.data.api.response.MatchDetailResponse
 import com.ericjohnson.footballapps.data.api.response.TeamDetailResponse
 import com.ericjohnson.footballapps.data.api.setup.ApiRepository
@@ -18,5 +19,8 @@ class Interactor {
 
     fun getTeamDetail(teamId: String): Call<TeamDetailResponse> =
             apiRepository.getTeamDetail(teamId)
+
+    fun getMatchDetail(eventId:String):Call<MatchDetailResponse> =
+            apiRepository.getMatchDetail(eventId)
 
 }

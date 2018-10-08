@@ -1,5 +1,6 @@
 package com.ericjohnson.footballapps.view.matchDetail
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
@@ -17,29 +18,33 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
 
     private val matchDetailPresenter: IMatchDetailPresenter<MatchDetailView> = MatchDetailPresenter()
 
-    private lateinit var matchDetail: MatchDetail
+    private lateinit var eventId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_match_detail)
+        setupToolbar()
         onAttachView()
         initIntent()
-        matchDetailPresenter.getHomeTeamBadge(matchDetail.idHomeTeam.toString())
-        matchDetailPresenter.getAwayTeamBadge(matchDetail.idAwayTeam.toString())
-        setData()
+        getMatchDetail(eventId)
+        btn_retry_match_detail.setOnClickListener {
+            getMatchDetail(eventId)
+        }
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = getString(R.string.title_match_detail)
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun initIntent() {
         val intent = intent
-        matchDetail = intent.getParcelableExtra(AppConstants.KEY_MATCH_DETAIL)
+        eventId = intent.getStringExtra(AppConstants.KEY_MATCH_DETAIL)
     }
 
-    private fun setData() {
-        setSupportActionBar(toolbar)
-        supportActionBar?.title = matchDetail.strHomeTeam + " vs " + matchDetail.strAwayTeam
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
+    private fun setData(matchDetail: MatchDetail) {
         tv_date.text = TimeUtil.getFormattedDate(matchDetail.dateEvent.toString())
         tv_round.text = (getString(R.string.label_jornada) + " ").plus(matchDetail.intRound)
         tv_home_team.text = matchDetail.strHomeTeam
@@ -56,8 +61,8 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         when {
             matchDetail.intHomeScore == null && matchDetail.intAwayScore == null -> ll_goal_scorer.visibility = View.GONE
             else -> {
-                tv_home_goal_scorer.text = matchDetail.strHomeGoalDetails?.replace(";", "\n")?.replace(":"," ")
-                tv_away_goal_scorer.text = matchDetail.strAwayGoalDetails?.replace(";", "\n")?.replace(":"," ")
+                tv_home_goal_scorer.text = matchDetail.strHomeGoalDetails?.replace(";", "\n")?.replace(":", " ")
+                tv_away_goal_scorer.text = matchDetail.strAwayGoalDetails?.replace(";", "\n")?.replace(":", " ")
             }
         }
 
@@ -76,7 +81,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
             else -> {
                 when {
                     TextUtils.isEmpty(matchDetail.strHomeYellowCards) -> "-"
-                    else -> matchDetail.strHomeYellowCards?.replace(";", "\n")?.replace(":"," ")
+                    else -> matchDetail.strHomeYellowCards?.replace(";", "\n")?.replace(":", " ")
                 }
             }
         }
@@ -86,7 +91,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
             else -> {
                 when {
                     TextUtils.isEmpty(matchDetail.strAwayYellowCards) -> "-"
-                    else -> matchDetail.strAwayYellowCards?.replace(";", "\n")?.replace(":"," ")
+                    else -> matchDetail.strAwayYellowCards?.replace(";", "\n")?.replace(":", " ")
                 }
             }
         }
@@ -96,7 +101,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
             else -> {
                 when {
                     TextUtils.isEmpty(matchDetail.strHomeRedCards) -> "-"
-                    else -> matchDetail.strHomeRedCards?.replace(";", "\n")?.replace(":"," ")
+                    else -> matchDetail.strHomeRedCards?.replace(";", "\n")?.replace(":", " ")
                 }
             }
         }
@@ -106,7 +111,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
             else -> {
                 when {
                     TextUtils.isEmpty(matchDetail.strAwayRedCards) -> "-"
-                    else -> matchDetail.strAwayRedCards?.replace(";", "\n")?.replace(":"," ")
+                    else -> matchDetail.strAwayRedCards?.replace(";", "\n")?.replace(":", " ")
                 }
             }
         }
@@ -167,6 +172,26 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         onDetachView()
     }
 
+    override fun showMatchDetail(matchDetail: MatchDetail) {
+        pb_match_detail.visibility = View.GONE
+        ev_error_match_detail.visibility = View.GONE
+        ll_match_detail.visibility = View.VISIBLE
+        setData(matchDetail)
+        matchDetailPresenter.getHomeTeamBadge(matchDetail.idHomeTeam.toString())
+        matchDetailPresenter.getAwayTeamBadge(matchDetail.idAwayTeam.toString())
+    }
+
+    override fun showErrorMatchDetail() {
+        pb_match_detail.visibility = View.GONE
+        ev_error_match_detail.visibility = View.VISIBLE
+    }
+
+    private fun getMatchDetail(eventId: String) {
+        pb_match_detail.visibility = View.VISIBLE
+        ev_error_match_detail.visibility = View.GONE
+        ll_match_detail.visibility = View.GONE
+        matchDetailPresenter.getMatchDetail(eventId)
+    }
 
     override fun showHomeTeamBadge(imageUrl: String) {
         Glide.with(this).load(imageUrl).into(img_home_team)
@@ -190,8 +215,9 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when {
-            item?.itemId == android.R.id.home -> finish()
+            item?.itemId == android.R.id.home -> onBackPressed()
         }
         return super.onOptionsItemSelected(item)
     }
+
 }

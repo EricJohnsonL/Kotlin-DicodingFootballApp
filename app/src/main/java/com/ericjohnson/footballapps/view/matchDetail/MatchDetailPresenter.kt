@@ -1,20 +1,24 @@
 package com.ericjohnson.footballapps.view.matchDetail
 
 import com.ericjohnson.footballapps.base.BasePresenter
+import com.ericjohnson.footballapps.data.api.MatchDetail
 import com.ericjohnson.footballapps.data.api.response.TeamDetailResponse
 import com.ericjohnson.footballapps.domain.GetAwayTeamBadgeInteractor
 import com.ericjohnson.footballapps.domain.GetHomeTeamBadgeInteractor
+import com.ericjohnson.footballapps.domain.GetMatchDetailInteractor
 
 /**
  * Created by johnson on 06/10/18.
  */
 
 class MatchDetailPresenter<V : MatchDetailView> : BasePresenter<V>(), IMatchDetailPresenter<V>,
-        GetHomeTeamBadgeInteractor.GetHomeTeamBadgeInteractorListener, GetAwayTeamBadgeInteractor.GetAwayTeamBadgeInteractorListener {
+        GetHomeTeamBadgeInteractor.GetHomeTeamBadgeInteractorListener, GetAwayTeamBadgeInteractor.GetAwayTeamBadgeInteractorListener, GetMatchDetailInteractor.GetMatchDetailInteractorListener {
 
     private val getHomeTeamBadgeInteractor: GetHomeTeamBadgeInteractor = GetHomeTeamBadgeInteractor(this)
 
     private val getAwayTeamBadgeInteractor: GetAwayTeamBadgeInteractor = GetAwayTeamBadgeInteractor(this)
+
+    private val getMatchDetailInteractor: GetMatchDetailInteractor = GetMatchDetailInteractor(this)
 
     //region Home Team Badge
     override fun getHomeTeamBadge(teamId: String) {
@@ -43,6 +47,21 @@ class MatchDetailPresenter<V : MatchDetailView> : BasePresenter<V>(), IMatchDeta
 
     override fun onGetAwayTeamBadgeFailed(message: String) {
         view?.showError(message)
+    }
+    //endregion
+
+    //region Match Detail
+    override fun getMatchDetail(eventId: String) {
+        getMatchDetailInteractor.eventId = eventId
+        getMatchDetailInteractor.call()
+    }
+
+    override fun onGetMatchDetailSuccess(matchDetail: MatchDetail) {
+        view?.showMatchDetail(matchDetail)
+    }
+
+    override fun onGetMatchDetailFailed() {
+        view?.showErrorMatchDetail()
     }
     //endregion
 

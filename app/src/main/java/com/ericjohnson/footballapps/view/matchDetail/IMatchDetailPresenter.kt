@@ -12,4 +12,6 @@ interface IMatchDetailPresenter<V : IBaseView> : IBasePresenter<V> {
 
     fun getAwayTeamBadge(teamId: String)
 
+    fun getMatchDetail(eventId:String)
+
 }

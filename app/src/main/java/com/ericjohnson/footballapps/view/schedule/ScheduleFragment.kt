@@ -65,7 +65,7 @@ class ScheduleFragment : Fragment(), ScheduleView, SwipeRefreshLayout.OnRefreshL
 
         srl_schedule.setOnRefreshListener(this)
         adapter = MatchScheduleAdapter(ctx, mutableListOf()) {
-            startActivity<MatchDetailActivity>(AppConstants.KEY_MATCH_DETAIL to it)
+            startActivity<MatchDetailActivity>(AppConstants.KEY_MATCH_DETAIL to it.idEvent)
         }
         rv_schedule_list.layoutManager = LinearLayoutManager(ctx)
         rv_schedule_list.hasFixedSize()
