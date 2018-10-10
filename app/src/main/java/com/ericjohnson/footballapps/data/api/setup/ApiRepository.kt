@@ -1,6 +1,5 @@
 package com.ericjohnson.footballapps.data.api.setup
 
-import com.ericjohnson.footballapps.data.api.MatchDetail
 import com.ericjohnson.footballapps.data.api.response.MatchDetailResponse
 import com.ericjohnson.footballapps.data.api.response.TeamDetailResponse
 import retrofit2.Call

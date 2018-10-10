@@ -1,6 +1,5 @@
 package com.ericjohnson.footballapps.view.matchDetail
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -30,7 +29,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
 
     private var isFavorite: Boolean = false
 
-    private lateinit var favoriteMatch: FavoriteMatch;
+    private lateinit var favoriteMatch: FavoriteMatch
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -38,5 +38,4 @@ class DatabaseOpenHelper(ctx: Context) : ManagedSQLiteOpenHelper
         db.dropTable(FavoriteMatch.TABLE_FAVORITE_MATCH, true)
         onCreate(db)
     }
-
 }
