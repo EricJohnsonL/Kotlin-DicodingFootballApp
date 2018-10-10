@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_prev_match"
+        android:icon="@drawable/ic_football"
+        android:title="@string/menu_prev_match" />
+    <item
+        android:id="@+id/menu_next_match"
+        android:icon="@drawable/ic_calendar"
+        android:title="@string/menu_next_match" />
+    <item
+        android:id="@+id/menu_fav_match"
+        android:icon="@drawable/ic_stars"
+        android:title="@string/menu_favorite" />
+</menu>

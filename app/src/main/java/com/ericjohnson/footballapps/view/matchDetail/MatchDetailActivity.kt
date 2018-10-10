@@ -2,13 +2,19 @@ package com.ericjohnson.footballapps.view.matchDetail
 
 import android.opengl.Visibility
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.bumptech.glide.Glide
 import com.ericjohnson.footballapps.R
+import com.ericjohnson.footballapps.R.drawable.ic_add_to_fav
+import com.ericjohnson.footballapps.R.drawable.ic_fav
+import com.ericjohnson.footballapps.R.menu.favorites_menu
 import com.ericjohnson.footballapps.data.api.MatchDetail
+import com.ericjohnson.footballapps.data.db.FavoriteMatch
 import com.ericjohnson.footballapps.utils.AppConstants
 import com.ericjohnson.footballapps.utils.TimeUtil
 import kotlinx.android.synthetic.main.activity_match_detail.*
@@ -19,6 +25,12 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
     private val matchDetailPresenter: IMatchDetailPresenter<MatchDetailView> = MatchDetailPresenter()
 
     private lateinit var eventId: String
+
+    private var menuItem: Menu? = null
+
+    private var isFavorite: Boolean = false
+
+    private lateinit var favoriteMatch: FavoriteMatch;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -177,8 +189,12 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         ev_error_match_detail.visibility = View.GONE
         ll_match_detail.visibility = View.VISIBLE
         setData(matchDetail)
+        favoriteMatch = FavoriteMatch(matchDetail.idEvent, matchDetail.dateEvent,
+                matchDetail.strHomeTeam, matchDetail.strAwayTeam, matchDetail.intHomeScore,
+                matchDetail.intAwayScore)
         matchDetailPresenter.getHomeTeamBadge(matchDetail.idHomeTeam.toString())
         matchDetailPresenter.getAwayTeamBadge(matchDetail.idAwayTeam.toString())
+        matchDetailPresenter.checkFavorites(this, matchDetail.idEvent.toString())
     }
 
     override fun showErrorMatchDetail() {
@@ -213,11 +229,49 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         matchDetailPresenter.onDetach()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(favorites_menu, menu)
+        menuItem = menu
+        menuItem?.getItem(0)?.isVisible = false
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when {
             item?.itemId == android.R.id.home -> onBackPressed()
+            item?.itemId == R.id.add_to_favorites -> {
+                if (isFavorite) matchDetailPresenter.removeFromFavorites(this, eventId)
+                else matchDetailPresenter.setToFavorites(this, favoriteMatch)
+                isFavorite != isFavorite
+                checkIsFavorite(isFavorite)
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun checkIsFavorite(isFavorite: Boolean) {
+        this.isFavorite = isFavorite
+        menuItem?.getItem(0)?.isVisible = true
+        if (this.isFavorite) {
+            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, ic_fav)
+        } else {
+            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, ic_add_to_fav)
+        }
+
+    }
+
+    override fun addTofavoriteSuccess() {
+        checkIsFavorite(true)
+        snackbar(sv_match_detail,"Added to Favorite")
+    }
+
+    override fun removeFromFavoriteSuccess() {
+        checkIsFavorite(false)
+        snackbar(sv_match_detail,"Removed to Favorite")
+    }
+
+    override fun addOrRemoveFavoriteFailed() {
+        snackbar(sv_match_detail,"Something error, process failed")
     }
 
 }

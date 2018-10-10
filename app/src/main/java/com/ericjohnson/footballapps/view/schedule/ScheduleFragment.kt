@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.ericjohnson.footballapps.R
 import com.ericjohnson.footballapps.adapter.MatchScheduleAdapter
+import com.ericjohnson.footballapps.data.Interactor
 import com.ericjohnson.footballapps.data.api.MatchDetail
 import com.ericjohnson.footballapps.utils.AppConstants
 import com.ericjohnson.footballapps.view.matchDetail.MatchDetailActivity

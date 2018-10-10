@@ -11,11 +11,21 @@ interface MatchDetailView : IBaseView {
 
     fun showMatchDetail(matchDetail: MatchDetail)
 
-    fun showErrorMatchDetail();
+    fun showErrorMatchDetail()
 
     fun showHomeTeamBadge(imageUrl: String)
 
     fun showAwayTeamBadge(imageUrl: String)
 
     fun showError(message: String)
+
+    fun checkIsFavorite(isFavorite: Boolean)
+
+    fun addTofavoriteSuccess()
+
+    fun removeFromFavoriteSuccess()
+
+    fun addOrRemoveFavoriteFailed()
+
+
 }
