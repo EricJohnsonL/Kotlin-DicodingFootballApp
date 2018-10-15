@@ -15,6 +15,7 @@ import com.ericjohnson.footballapps.R.menu.favorites_menu
 import com.ericjohnson.footballapps.data.api.MatchDetail
 import com.ericjohnson.footballapps.data.db.FavoriteMatch
 import com.ericjohnson.footballapps.utils.AppConstants
+import com.ericjohnson.footballapps.utils.EspressoIdLingResource
 import com.ericjohnson.footballapps.utils.TimeUtil
 import kotlinx.android.synthetic.main.activity_match_detail.*
 import org.jetbrains.anko.design.snackbar
@@ -34,8 +35,8 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_match_detail)
-        setupToolbar()
         onAttachView()
+        setupToolbar()
         initIntent()
         getMatchDetail(eventId)
         btn_retry_match_detail.setOnClickListener {
@@ -183,6 +184,16 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         onDetachView()
     }
 
+
+    private fun getMatchDetail(eventId: String) {
+        pb_match_detail.visibility = View.VISIBLE
+        ev_error_match_detail.visibility = View.GONE
+        ll_match_detail.visibility = View.GONE
+        EspressoIdLingResource.increment()
+        matchDetailPresenter.getMatchDetail(eventId)
+
+    }
+
     override fun showMatchDetail(matchDetail: MatchDetail) {
         pb_match_detail.visibility = View.GONE
         ev_error_match_detail.visibility = View.GONE
@@ -191,22 +202,19 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         favoriteMatch = FavoriteMatch(matchDetail.idEvent, matchDetail.dateEvent,
                 matchDetail.strHomeTeam, matchDetail.strAwayTeam, matchDetail.intHomeScore,
                 matchDetail.intAwayScore)
+        matchDetailPresenter.checkFavorites(this, matchDetail.idEvent.toString())
+        EspressoIdLingResource.decrement()
+
         matchDetailPresenter.getHomeTeamBadge(matchDetail.idHomeTeam.toString())
         matchDetailPresenter.getAwayTeamBadge(matchDetail.idAwayTeam.toString())
-        matchDetailPresenter.checkFavorites(this, matchDetail.idEvent.toString())
     }
 
     override fun showErrorMatchDetail() {
         pb_match_detail.visibility = View.GONE
         ev_error_match_detail.visibility = View.VISIBLE
+        EspressoIdLingResource.decrement()
     }
 
-    private fun getMatchDetail(eventId: String) {
-        pb_match_detail.visibility = View.VISIBLE
-        ev_error_match_detail.visibility = View.GONE
-        ll_match_detail.visibility = View.GONE
-        matchDetailPresenter.getMatchDetail(eventId)
-    }
 
     override fun showHomeTeamBadge(imageUrl: String) {
         Glide.with(this).load(imageUrl).into(img_home_team)
@@ -216,7 +224,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         Glide.with(this).load(imageUrl).into(img_away_team)
     }
 
-    override fun showError(message: String) {
+    override fun showImageError(message: String) {
         snackbar(sv_match_detail, message)
     }
 
@@ -261,16 +269,16 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
 
     override fun addTofavoriteSuccess() {
         checkIsFavorite(true)
-        snackbar(sv_match_detail,"Added to Favorite")
+        snackbar(sv_match_detail, getString(R.string.message_added_to_favorite))
     }
 
     override fun removeFromFavoriteSuccess() {
         checkIsFavorite(false)
-        snackbar(sv_match_detail,"Removed to Favorite")
+        snackbar(sv_match_detail, getString(R.string.message_remove_to_favorite))
     }
 
     override fun addOrRemoveFavoriteFailed() {
-        snackbar(sv_match_detail,"Something error, process failed")
+        snackbar(sv_match_detail, getString(R.string.message_error_favorite))
     }
 
 }

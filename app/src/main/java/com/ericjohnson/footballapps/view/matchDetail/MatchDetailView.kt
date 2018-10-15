@@ -17,7 +17,7 @@ interface MatchDetailView : IBaseView {
 
     fun showAwayTeamBadge(imageUrl: String)
 
-    fun showError(message: String)
+    fun showImageError(message: String)
 
     fun checkIsFavorite(isFavorite: Boolean)
 

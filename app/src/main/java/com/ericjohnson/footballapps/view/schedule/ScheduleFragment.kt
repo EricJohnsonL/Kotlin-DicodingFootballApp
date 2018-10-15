@@ -13,6 +13,7 @@ import com.ericjohnson.footballapps.R
 import com.ericjohnson.footballapps.adapter.MatchScheduleAdapter
 import com.ericjohnson.footballapps.data.api.MatchDetail
 import com.ericjohnson.footballapps.utils.AppConstants
+import com.ericjohnson.footballapps.utils.EspressoIdLingResource
 import com.ericjohnson.footballapps.view.matchDetail.MatchDetailActivity
 import kotlinx.android.synthetic.main.fragment_schedule.*
 import org.jetbrains.anko.support.v4.ctx
@@ -92,14 +93,21 @@ class ScheduleFragment : Fragment(), ScheduleView, SwipeRefreshLayout.OnRefreshL
         schedulePresenter.onDetach()
     }
 
+    private fun requestMatchData() {
+        EspressoIdLingResource.increment()
+        schedulePresenter.getMatches(scheduleType.toString())
+    }
+
     override fun setMatchSchedule(matchSchedule: MutableList<MatchDetail>) {
         rv_schedule_list.visibility = View.VISIBLE
         adapter.addAllItem(matchSchedule)
+        EspressoIdLingResource.decrement()
     }
 
     override fun showError() {
         ev_error_league_list.visibility = View.VISIBLE
         rv_schedule_list.visibility = View.GONE
+        EspressoIdLingResource.decrement()
     }
 
     override fun showSwipeRefresh(isShown: Boolean) {
@@ -108,10 +116,5 @@ class ScheduleFragment : Fragment(), ScheduleView, SwipeRefreshLayout.OnRefreshL
             else -> srl_schedule.isRefreshing = false
         }
     }
-
-    private fun requestMatchData() {
-        schedulePresenter.getMatches(scheduleType.toString())
-    }
-
 
 }

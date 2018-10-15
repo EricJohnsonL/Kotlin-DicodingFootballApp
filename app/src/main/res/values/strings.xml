@@ -21,4 +21,7 @@
     <string name="menu_favorite">Favorite</string>
     <string name="label_empty_fav_match">You don\'t have favorite matches</string>
     <string name="menu_favorites">Favorites</string>
+    <string name="message_added_to_favorite">Added to favorite</string>
+    <string name="message_remove_to_favorite">Removed from favorite</string>
+    <string name="message_error_favorite">Something error, process failed</string>
 </resources>

@@ -33,7 +33,7 @@ class MatchDetailPresenter<V : MatchDetailView> : BasePresenter<V>(), IMatchDeta
     }
 
     override fun onGetHomeTeamBadgeFailed(message: String) {
-        view?.showError(message)
+        view?.showImageError(message)
     }
     //endregion
 
@@ -48,7 +48,7 @@ class MatchDetailPresenter<V : MatchDetailView> : BasePresenter<V>(), IMatchDeta
     }
 
     override fun onGetAwayTeamBadgeFailed(message: String) {
-        view?.showError(message)
+        view?.showImageError(message)
     }
     //endregion
 
