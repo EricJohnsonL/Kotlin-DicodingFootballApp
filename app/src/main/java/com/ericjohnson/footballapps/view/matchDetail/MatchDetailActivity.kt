@@ -15,7 +15,7 @@ import com.ericjohnson.footballapps.R.menu.favorites_menu
 import com.ericjohnson.footballapps.data.api.MatchDetail
 import com.ericjohnson.footballapps.data.db.FavoriteMatch
 import com.ericjohnson.footballapps.utils.AppConstants
-import com.ericjohnson.footballapps.utils.EspressoIdLingResource
+import com.ericjohnson.footballapps.utils.EspressoIdlingResource
 import com.ericjohnson.footballapps.utils.TimeUtil
 import kotlinx.android.synthetic.main.activity_match_detail.*
 import org.jetbrains.anko.design.snackbar
@@ -52,13 +52,15 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
     }
 
     private fun initIntent() {
-        val intent = intent
         eventId = intent.getStringExtra(AppConstants.KEY_MATCH_DETAIL)
     }
 
     private fun setData(matchDetail: MatchDetail) {
-        tv_date.text = TimeUtil.getFormattedDate(matchDetail.dateEvent.toString())
-        tv_round.text = (getString(R.string.label_jornada) + " ").plus(matchDetail.intRound)
+        val dateTime = TimeUtil.getDateTime(matchDetail.dateEvent.toString() + " "
+                + matchDetail.strTime.toString()).split("-")
+        tv_date.text = dateTime[0]
+        tv_time.text = dateTime[1]
+        tv_round.text = (matchDetail.strLeague + " " + getString(R.string.label_matchday) + " ").plus(matchDetail.intRound)
         tv_home_team.text = matchDetail.strHomeTeam
         tv_away_team.text = matchDetail.strAwayTeam
         tv_home_score.text = when {
@@ -180,16 +182,15 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         onDetachView()
+        super.onDestroy()
     }
-
 
     private fun getMatchDetail(eventId: String) {
         pb_match_detail.visibility = View.VISIBLE
         ev_error_match_detail.visibility = View.GONE
         ll_match_detail.visibility = View.GONE
-        EspressoIdLingResource.increment()
+        EspressoIdlingResource.increment()
         matchDetailPresenter.getMatchDetail(eventId)
 
     }
@@ -199,11 +200,11 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         ev_error_match_detail.visibility = View.GONE
         ll_match_detail.visibility = View.VISIBLE
         setData(matchDetail)
-        favoriteMatch = FavoriteMatch(matchDetail.idEvent, matchDetail.dateEvent,
+        favoriteMatch = FavoriteMatch(matchDetail.idEvent, matchDetail.dateEvent, matchDetail.strTime,
                 matchDetail.strHomeTeam, matchDetail.strAwayTeam, matchDetail.intHomeScore,
                 matchDetail.intAwayScore)
         matchDetailPresenter.checkFavorites(this, matchDetail.idEvent.toString())
-        EspressoIdLingResource.decrement()
+        EspressoIdlingResource.decrement()
 
         matchDetailPresenter.getHomeTeamBadge(matchDetail.idHomeTeam.toString())
         matchDetailPresenter.getAwayTeamBadge(matchDetail.idAwayTeam.toString())
@@ -212,7 +213,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
     override fun showErrorMatchDetail() {
         pb_match_detail.visibility = View.GONE
         ev_error_match_detail.visibility = View.VISIBLE
-        EspressoIdLingResource.decrement()
+        EspressoIdlingResource.decrement()
     }
 
 

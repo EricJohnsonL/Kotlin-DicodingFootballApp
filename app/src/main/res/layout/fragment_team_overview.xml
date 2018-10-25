@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:padding="16dp">
+
+        <ProgressBar
+            android:id="@+id/pb_team_overview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <LinearLayout
+            android:id="@+id/ev_error_team_overview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/ic_error"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/error_load_data"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_retry"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_rounded_green"
+                android:text="@string/btn_retry"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/ll_team_overview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_label_year_founded"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_founded"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_year_founded"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_label_year_founded"
+                android:textSize="16sp"
+                tools:text="1902" />
+
+            <TextView
+                android:id="@+id/tv_label_stadium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_year_founded"
+                android:layout_marginTop="16dp"
+                android:text="@string/label_stadium"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_stadium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_label_stadium"
+                android:textSize="16sp"
+                tools:text="Santiago Bernabeu" />
+
+            <TextView
+                android:id="@+id/tv_label_coach"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_stadium"
+                android:layout_marginTop="16dp"
+                android:text="@string/label_head_coach"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_coach"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_label_coach"
+                android:textSize="16sp"
+                tools:text="Julen Lopetegui" />
+
+            <TextView
+                android:id="@+id/tv_label_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_coach"
+                android:layout_marginTop="16dp"
+                android:text="@string/label_website"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
+                android:layout_below="@id/tv_label_link"
+                android:autoLink="web"
+                android:textColorLink="@color/blue"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_label_overview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_link"
+                android:layout_marginTop="16dp"
+                android:text="@string/label_overviews"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_label_overview"
+                android:textSize="16sp"
+                tools:text="molestie metus vitae scelerisque egestas. Nunc volutpat pharetra sapien, id ornare arcu lobortis sed. Sed sollicitudin aliquam magna vel vehicula. Quisque ut enim ac arcu rhoncus luctus eget nec risus. Morbi efficitur neque posuere, congue nisl sed, venenatis turpis. Maecenas vestibulum neque faucibus arcu auctor, in aliquam magna malesuada. Nulla facilisi. Donec ut ornare justo. Etiam blandit porttitor consequat. Nam eleifend, felis sit amet porttitor vehicula, dui dui congue nisl, quis ullamcorper nibh nulla quis risus. " />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>

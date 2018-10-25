@@ -13,6 +13,9 @@ data class MatchDetail(
         @SerializedName("idEvent")
         var idEvent: String? = null,
 
+        @SerializedName("strLeague")
+        var strLeague: String? = null,
+
         @SerializedName("strHomeTeam")
         var strHomeTeam: String? = null,
 
@@ -89,6 +92,12 @@ data class MatchDetail(
         var intAwayShots: Int? = null,
 
         @SerializedName("intRound")
-        var intRound: Int
+        var intRound: Int? = null,
+
+        @SerializedName("strTime")
+        var strTime: String? = null,
+
+        @SerializedName("strSport")
+        var strSport: String? = null
 
 )

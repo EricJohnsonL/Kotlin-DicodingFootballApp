@@ -4,20 +4,19 @@
     android:id="@+id/srl_schedule"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.schedule.ScheduleFragment">
+    tools:context=".view.matchescontainer.schedule.ScheduleFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
-
         <LinearLayout
-            android:id="@+id/ev_error_league_list"
+            android:id="@+id/ev_error_match_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:gravity="center"
             android:background="@color/white"
+            android:gravity="center"
             android:orientation="vertical"
             android:visibility="gone">
 
@@ -45,12 +44,32 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/ll_empty_schedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/error_empty_schedule"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_schedule_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
-            android:clipToPadding="false"/>
+            android:clipToPadding="false"
+            android:visibility="gone" />
     </RelativeLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>

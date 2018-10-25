@@ -54,7 +54,7 @@ class MatchDetailPresenterTest {
                 null, null, null, null, null,
                 null, null, null, null, null,
                 null, null, null, null, null,
-                null, null, null, null, null, null, 9)
+                null, null, null, null, null, null, 9,null)
         items.add(item)
         response = MatchDetailResponse(items)
 
@@ -95,15 +95,15 @@ class MatchDetailPresenterTest {
     fun presenterGetBadgeSuccessTest() {
         Mockito.`when`(apiRepository.getTeamDetail(teamId)).thenReturn(Calls.response(teamDetailResponse))
         matchDetailPresenter.getHomeTeamBadge(teamId)
-        matchDetailPresenter.onGetHomeTeamBadgeSuccess(teamDetailResponse)
-        Mockito.verify(matchDetailView).showHomeTeamBadge(teamDetailResponse.teams[0].strTeamBadge.toString())
+        matchDetailPresenter.onGetHomeTeamDetailSuccess(teamDetailResponse)
+        teamDetailResponse.teams[0].strTeamBadge?.let { Mockito.verify(matchDetailView).showHomeTeamBadge(it) }
     }
 
     @Test
     fun presenterGetBadgeFailedTest() {
         Mockito.`when`(apiRepository.getTeamDetail("")).thenReturn(Calls.failure(IOException("Error")))
         matchDetailPresenter.getHomeTeamBadge("")
-        matchDetailPresenter.onGetHomeTeamBadgeFailed("Error")
+        matchDetailPresenter.onGetHomeTeamDetailFailed("Error")
         Mockito.verify(matchDetailView).showImageError("Error")
     }
 

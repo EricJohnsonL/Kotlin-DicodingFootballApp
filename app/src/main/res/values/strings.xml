@@ -1,11 +1,10 @@
 <resources>
-    <string name="title_football_club">Football Club</string>
+    <string name="app_title">GoalMania</string>
     <string name="btn_retry">Retry</string>
     <string name="error_load_data">Cannot fetch data</string>
     <string name="title_last_match">Last Match</string>
     <string name="title_next_match">Next Match</string>
     <string name="label_versus">vs</string>
-    <string name="label_jornada">La Liga Jornada</string>
     <string name="label_shoots">Shoots</string>
     <string name="label_yellow_card">Yellow Card</string>
     <string name="label_red_card">Red Card</string>
@@ -18,10 +17,50 @@
     <string name="title_match_detail">Match Detail</string>
     <string name="menu_prev_match">Prev. Match</string>
     <string name="menu_next_match">Next Match</string>
-    <string name="menu_favorite">Favorite</string>
     <string name="label_empty_fav_match">You don\'t have favorite matches</string>
+    <string name="label_empty_fav_team">You don\'t have favorite team</string>
     <string name="menu_favorites">Favorites</string>
     <string name="message_added_to_favorite">Added to favorite</string>
     <string name="message_remove_to_favorite">Removed from favorite</string>
     <string name="message_error_favorite">Something error, process failed</string>
+    <string name="menu_matches">Matches</string>
+    <string name="menu_teams">Teams</string>
+    <string name="title_search">Search</string>
+    <string name="label_matchday">Matchday</string>
+
+    <string-array name="league">
+        <item>English Premier League</item>
+        <item>German Bundesliga</item>
+        <item>Italian Serie A</item>
+        <item>French Ligue 1</item>
+        <item>Spanish La Liga</item>
+    </string-array>
+
+    <string-array name="league_id">
+        <item>4328</item>
+        <item>4331</item>
+        <item>4332</item>
+        <item>4334</item>
+        <item>4335</item>
+    </string-array>
+
+    <string name="label_overview">Overview</string>
+    <string name="label_players">Players</string>
+    <string name="label_founded">Founded:</string>
+    <string name="label_stadium">Stadium:</string>
+    <string name="label_head_coach">Head Coach:</string>
+    <string name="label_overviews">Overview:</string>
+    <string name="label_website">Website:</string>
+    <string name="label_nationality">Nationality:</string>
+    <string name="label_position">Position:</string>
+    <string name="label_height">Height(m):</string>
+    <string name="label_weight">Weight(Kg):</string>
+    <string name="title_fav_match">Favorite Match</string>
+    <string name="title_fav_team">Favorite Team</string>
+    <string name="hint">Input keyword</string>
+    <string name="title_search_match">Search match</string>
+    <string name="title_search_teams">Search teams</string>
+    <string name="label_soccer">Soccer</string>
+    <string name="error_empty_schedule">Schedule Not Avaiable</string>
+    <string name="error_data_not_available">Data Not Available</string>
 </resources>

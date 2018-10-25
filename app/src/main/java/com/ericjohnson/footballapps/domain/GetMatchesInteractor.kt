@@ -16,8 +16,9 @@ class GetMatchesInteractor(private val getMatchesInteractorListener: GetMatchesI
     private fun getInteractor(): Interactor = Interactor()
 
     lateinit var scheduleType: String
+    lateinit var leagueId: String
 
-    fun call() = getInteractor().getMatches(scheduleType, BuildConfig.LEAGUE_ID).enqueue(this)
+    fun call() = getInteractor().getMatches(scheduleType, leagueId).enqueue(this)
 
     override fun onResponse(call: Call<MatchDetailResponse>, response: Response<MatchDetailResponse>) {
         if (response.isSuccessful) {

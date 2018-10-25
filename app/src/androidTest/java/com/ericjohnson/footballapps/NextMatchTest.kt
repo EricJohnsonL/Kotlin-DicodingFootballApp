@@ -9,7 +9,7 @@ import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.RecyclerView
-import com.ericjohnson.footballapps.utils.EspressoIdLingResource
+import com.ericjohnson.footballapps.utils.EspressoIdlingResource
 import com.ericjohnson.footballapps.view.mainactivity.MainActivity
 import org.junit.After
 import org.junit.Before
@@ -31,12 +31,12 @@ class NextMatchTest {
 
     @Before
     fun registerIdlingResource() {
-        IdlingRegistry.getInstance().register(EspressoIdLingResource.getIdlingResource())
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.getIdlingResource())
     }
 
     @After
     fun unregisterIdlingResource() {
-        IdlingRegistry.getInstance().unregister(EspressoIdLingResource.getIdlingResource())
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.getIdlingResource())
     }
 
     @Test

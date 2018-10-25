@@ -5,8 +5,8 @@ import com.ericjohnson.footballapps.base.BasePresenter
 import com.ericjohnson.footballapps.data.api.MatchDetail
 import com.ericjohnson.footballapps.data.api.response.TeamDetailResponse
 import com.ericjohnson.footballapps.data.db.FavoriteMatch
-import com.ericjohnson.footballapps.domain.GetAwayTeamBadgeInteractor
-import com.ericjohnson.footballapps.domain.GetHomeTeamBadgeInteractor
+import com.ericjohnson.footballapps.domain.GetAwayTeamDetailInteractor
+import com.ericjohnson.footballapps.domain.GetHomeTeamDetailInteractor
 import com.ericjohnson.footballapps.domain.GetMatchDetailInteractor
 
 /**
@@ -14,40 +14,40 @@ import com.ericjohnson.footballapps.domain.GetMatchDetailInteractor
  */
 
 class MatchDetailPresenter<V : MatchDetailView> : BasePresenter<V>(), IMatchDetailPresenter<V>,
-        GetHomeTeamBadgeInteractor.GetHomeTeamBadgeInteractorListener, GetAwayTeamBadgeInteractor.GetAwayTeamBadgeInteractorListener, GetMatchDetailInteractor.GetMatchDetailInteractorListener {
+        GetHomeTeamDetailInteractor.GetHomeTeamBadgeInteractorListener, GetAwayTeamDetailInteractor.GetAwayTeamBadgeInteractorListener, GetMatchDetailInteractor.GetMatchDetailInteractorListener {
 
-    private val getHomeTeamBadgeInteractor: GetHomeTeamBadgeInteractor = GetHomeTeamBadgeInteractor(this)
+    private val getHomeTeamDetailInteractor: GetHomeTeamDetailInteractor = GetHomeTeamDetailInteractor(this)
 
-    private val getAwayTeamBadgeInteractor: GetAwayTeamBadgeInteractor = GetAwayTeamBadgeInteractor(this)
+    private val getAwayTeamDetailInteractor: GetAwayTeamDetailInteractor = GetAwayTeamDetailInteractor(this)
 
     private val getMatchDetailInteractor: GetMatchDetailInteractor = GetMatchDetailInteractor(this)
 
     //region Home Team Badge
     override fun getHomeTeamBadge(teamId: String) {
-        getHomeTeamBadgeInteractor.teamId = teamId
-        getHomeTeamBadgeInteractor.call()
+        getHomeTeamDetailInteractor.teamId = teamId
+        getHomeTeamDetailInteractor.call()
     }
 
-    override fun onGetHomeTeamBadgeSuccess(teamDetailResponse: TeamDetailResponse) {
-        view?.showHomeTeamBadge(teamDetailResponse.teams[0].strTeamBadge.toString())
+    override fun onGetHomeTeamDetailSuccess(teamDetailResponse: TeamDetailResponse) {
+        teamDetailResponse.teams[0].strTeamBadge?.let { view?.showHomeTeamBadge(it) }
     }
 
-    override fun onGetHomeTeamBadgeFailed(message: String) {
+    override fun onGetHomeTeamDetailFailed(message: String) {
         view?.showImageError(message)
     }
     //endregion
 
     //region Away Team Badge
     override fun getAwayTeamBadge(teamId: String) {
-        getAwayTeamBadgeInteractor.teamId = teamId
-        getAwayTeamBadgeInteractor.call()
+        getAwayTeamDetailInteractor.teamId = teamId
+        getAwayTeamDetailInteractor.call()
     }
 
-    override fun onGetAwayTeamBadgeSuccess(teamDetailResponse: TeamDetailResponse) {
-        view?.showAwayTeamBadge(teamDetailResponse.teams[0].strTeamBadge.toString())
+    override fun onGetAwayTeamDetailSuccess(teamDetailResponse: TeamDetailResponse) {
+        teamDetailResponse.teams[0].strTeamBadge?.let { view?.showAwayTeamBadge(it) }
     }
 
-    override fun onGetAwayTeamBadgeFailed(message: String) {
+    override fun onGetAwayTeamDetailFailed(message: String) {
         view?.showImageError(message)
     }
     //endregion

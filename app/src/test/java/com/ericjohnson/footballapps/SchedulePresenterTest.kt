@@ -4,8 +4,8 @@ import com.ericjohnson.footballapps.data.api.MatchDetail
 import com.ericjohnson.footballapps.data.api.response.MatchDetailResponse
 import com.ericjohnson.footballapps.data.api.setup.ApiRepository
 import com.ericjohnson.footballapps.utils.ScheduleType
-import com.ericjohnson.footballapps.view.schedule.SchedulePresenter
-import com.ericjohnson.footballapps.view.schedule.ScheduleView
+import com.ericjohnson.footballapps.view.matchescontainer.schedule.SchedulePresenter
+import com.ericjohnson.footballapps.view.matchescontainer.schedule.ScheduleView
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock

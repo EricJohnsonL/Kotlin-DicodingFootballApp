@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:background="@color/colorPrimaryDark"
+            android:theme="@style/ActionBarColor"
             app:titleTextAppearance="@style/TitleTextAppearanceSmall"
             tools:title="Match Detail" />
 
@@ -67,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/toolbar"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -81,10 +82,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
-                    tools:text="La Liga Jornada 9" />
+                    tools:text="English Premier League Matchday 9" />
 
                 <TextView
                     android:id="@+id/tv_date"
@@ -92,8 +94,17 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     tools:text="Sunday, 7 October 2018" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp"
+                    tools:text="21:00" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

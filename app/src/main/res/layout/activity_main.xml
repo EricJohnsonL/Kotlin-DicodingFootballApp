@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@color/colorPrimaryDark"
-        app:title="La Liga Santander"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="@string/app_title"
         app:titleTextAppearance="@style/TitleTextAppearance" />
-
 
     <FrameLayout
         android:id="@+id/fl_container"
