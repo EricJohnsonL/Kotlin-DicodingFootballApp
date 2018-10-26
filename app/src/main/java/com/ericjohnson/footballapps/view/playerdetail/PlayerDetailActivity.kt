@@ -109,11 +109,16 @@ class PlayerDetailActivity : AppCompatActivity(), PlayerDetailView {
             else -> playerDetail.strWeight
         }
         tv_overview.text = playerDetail.strDescriptionEN
+
+        EspressoIdlingResource.decrement()
     }
 
 
     override fun showErrorView(isShown: Boolean) = when {
-        isShown -> ev_error_team_player.visibility = View.VISIBLE
+        isShown -> {
+            ev_error_team_player.visibility = View.VISIBLE
+            EspressoIdlingResource.decrement()
+        }
         else -> ev_error_team_player.visibility = View.GONE
     }
 

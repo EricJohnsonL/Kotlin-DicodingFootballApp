@@ -10,7 +10,7 @@ import retrofit2.Response
  * Created by johnson on 06/10/18.
  */
 
-class GetHomeTeamDetailInteractor(private val getHomeTeamBadgeInteractorListener: GetHomeTeamBadgeInteractorListener) : Callback<TeamDetailResponse> {
+class GetHomeTeamDetailInteractor(private val getHomeTeamDetailInteractorListener: GetHomeTeamDetailInteractorListener) : Callback<TeamDetailResponse> {
 
     private fun getInteractor(): Interactor = Interactor()
 
@@ -20,17 +20,17 @@ class GetHomeTeamDetailInteractor(private val getHomeTeamBadgeInteractorListener
 
     override fun onResponse(call: Call<TeamDetailResponse>, response: Response<TeamDetailResponse>) {
         if (response.isSuccessful) {
-            response.body()?.let { getHomeTeamBadgeInteractorListener.onGetHomeTeamDetailSuccess(it) }
+            response.body()?.let { getHomeTeamDetailInteractorListener.onGetHomeTeamDetailSuccess(it) }
         } else {
-            getHomeTeamBadgeInteractorListener.onGetHomeTeamDetailFailed(response.message())
+            getHomeTeamDetailInteractorListener.onGetHomeTeamDetailFailed(response.message())
         }
     }
 
     override fun onFailure(call: Call<TeamDetailResponse>, t: Throwable) {
-        getHomeTeamBadgeInteractorListener.onGetHomeTeamDetailFailed(t.message.toString())
+        getHomeTeamDetailInteractorListener.onGetHomeTeamDetailFailed(t.message.toString())
     }
 
-    interface GetHomeTeamBadgeInteractorListener {
+    interface GetHomeTeamDetailInteractorListener {
 
         fun onGetHomeTeamDetailSuccess(teamDetailResponse: TeamDetailResponse)
 

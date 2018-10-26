@@ -9,8 +9,7 @@ import com.ericjohnson.footballapps.view.matchescontainer.schedule.ScheduleView
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 import retrofit2.mock.Calls
 import java.io.IOException
@@ -33,6 +32,8 @@ class SchedulePresenterTest {
 
     private lateinit var schedulePresenter: SchedulePresenter<ScheduleView>
 
+    private lateinit var leagueId:String
+
     @Before
     fun init() {
         MockitoAnnotations.initMocks(this)
@@ -40,18 +41,19 @@ class SchedulePresenterTest {
         schedulePresenter.onAttach(scheduleView)
         items = mutableListOf()
         response = MatchDetailResponse(items)
+        leagueId="4335"
     }
 
     @Test
     fun apiRepositoryPastScheduleTest() {
-        apiRepository.getMatches(ScheduleType.PREVIOUS_EVENT, BuildConfig.LEAGUE_ID)
-        verify(apiRepository).getMatches(ScheduleType.PREVIOUS_EVENT, BuildConfig.LEAGUE_ID)
+        apiRepository.getMatches(ScheduleType.PREVIOUS_EVENT, leagueId)
+        verify(apiRepository).getMatches(ScheduleType.PREVIOUS_EVENT, leagueId)
     }
 
     @Test
     fun presenterPastScheduleSuccessTest() {
-        `when`(apiRepository.getMatches(ScheduleType.PREVIOUS_EVENT, BuildConfig.LEAGUE_ID)).thenReturn(Calls.response(response))
-        schedulePresenter.getMatches(ScheduleType.PREVIOUS_EVENT)
+        `when`(apiRepository.getMatches(ScheduleType.PREVIOUS_EVENT, leagueId)).thenReturn(Calls.response(response))
+        schedulePresenter.getMatches(ScheduleType.PREVIOUS_EVENT,leagueId)
         schedulePresenter.onGetMatchesSuccess(response)
         verify(scheduleView).showSwipeRefresh(false)
         verify(scheduleView).setMatchSchedule(response.events)
@@ -59,9 +61,9 @@ class SchedulePresenterTest {
 
     @Test
     fun presenterPastScheduleFailedTest() {
-        `when`(apiRepository.getMatches(ScheduleType.PREVIOUS_EVENT, BuildConfig.LEAGUE_ID))
+        `when`(apiRepository.getMatches(ScheduleType.PREVIOUS_EVENT, leagueId))
                 .thenReturn(Calls.failure(IOException("Error")))
-        schedulePresenter.getMatches(ScheduleType.PREVIOUS_EVENT)
+        schedulePresenter.getMatches(ScheduleType.PREVIOUS_EVENT,leagueId)
         schedulePresenter.onGetMatchesFailed()
         verify(scheduleView).showSwipeRefresh(false)
         verify(scheduleView).showError()
@@ -69,14 +71,14 @@ class SchedulePresenterTest {
 
     @Test
     fun apiRepositoryNextScheduleTest() {
-        apiRepository.getMatches(ScheduleType.NEXT_EVENT, BuildConfig.LEAGUE_ID)
-        verify(apiRepository).getMatches(ScheduleType.NEXT_EVENT, BuildConfig.LEAGUE_ID)
+        apiRepository.getMatches(ScheduleType.NEXT_EVENT,leagueId)
+        verify(apiRepository).getMatches(ScheduleType.NEXT_EVENT, leagueId)
     }
 
     @Test
     fun presenterNextScheduleSuccessTest() {
-        `when`(apiRepository.getMatches(ScheduleType.NEXT_EVENT, BuildConfig.LEAGUE_ID)).thenReturn(Calls.response(response))
-        schedulePresenter.getMatches(ScheduleType.NEXT_EVENT)
+        `when`(apiRepository.getMatches(ScheduleType.NEXT_EVENT, leagueId)).thenReturn(Calls.response(response))
+        schedulePresenter.getMatches(ScheduleType.NEXT_EVENT,leagueId)
         schedulePresenter.onGetMatchesSuccess(response)
         verify(scheduleView).showSwipeRefresh(false)
         verify(scheduleView).setMatchSchedule(response.events)
@@ -84,9 +86,9 @@ class SchedulePresenterTest {
 
     @Test
     fun presenterNextScheduleFailedTest() {
-        `when`(apiRepository.getMatches(ScheduleType.NEXT_EVENT, BuildConfig.LEAGUE_ID))
+        `when`(apiRepository.getMatches(ScheduleType.NEXT_EVENT, leagueId))
                 .thenReturn(Calls.failure(IOException("Error")))
-        schedulePresenter.getMatches(ScheduleType.NEXT_EVENT)
+        schedulePresenter.getMatches(ScheduleType.NEXT_EVENT,leagueId)
         schedulePresenter.onGetMatchesFailed()
         verify(scheduleView).showSwipeRefresh(false)
         verify(scheduleView).showError()

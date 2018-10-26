@@ -13,6 +13,7 @@ import com.ericjohnson.footballapps.data.api.PlayerDetail
 import com.ericjohnson.footballapps.data.api.TeamDetail
 import com.ericjohnson.footballapps.data.api.response.PlayerResponse
 import com.ericjohnson.footballapps.utils.AppConstants
+import com.ericjohnson.footballapps.utils.EspressoIdlingResource
 import com.ericjohnson.footballapps.view.playerdetail.PlayerDetailActivity
 import com.ericjohnson.footballapps.view.teamdetail.TeamDetailActivity
 import kotlinx.android.synthetic.main.fragment_team_player.*
@@ -50,8 +51,8 @@ class TeamPlayerFragment : Fragment(), TeamPlayerView {
         return inflater.inflate(R.layout.fragment_team_player, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         teamPlayerAdapter = TeamPlayerAdapter(ctx, mutableListOf())
         teamPlayerAdapter.clickListener = {
             startActivity<PlayerDetailActivity>(AppConstants.KEY_PLAYER_ID to it.idPlayer,
@@ -68,6 +69,7 @@ class TeamPlayerFragment : Fragment(), TeamPlayerView {
     }
 
     private fun requestTeamPlayer() {
+        EspressoIdlingResource.increment()
         presenter.getPlayers(teamId)
     }
 
@@ -76,7 +78,6 @@ class TeamPlayerFragment : Fragment(), TeamPlayerView {
         onDetachView()
         super.onDestroy()
     }
-
 
     override fun showProgressBar(isShown: Boolean) = when {
         isShown -> pb_team_player.visibility = View.VISIBLE
@@ -94,14 +95,18 @@ class TeamPlayerFragment : Fragment(), TeamPlayerView {
         } else {
             teamPlayerAdapter.addAllItem(playerResponse.player)
         }
+        EspressoIdlingResource.decrement()
     }
 
     override fun showError(isShown: Boolean) = when {
-        isShown -> ev_error_team_player.visibility = View.VISIBLE
+        isShown -> {
+            ev_error_team_player.visibility = View.VISIBLE
+            EspressoIdlingResource.decrement()
+        }
         else -> ev_error_team_player.visibility = View.GONE
     }
 
-    override fun showEmptyData(isShown: Boolean)  = when {
+    override fun showEmptyData(isShown: Boolean) = when {
         isShown -> ll_empty_player.visibility = View.VISIBLE
         else -> ll_empty_player.visibility = View.GONE
     }

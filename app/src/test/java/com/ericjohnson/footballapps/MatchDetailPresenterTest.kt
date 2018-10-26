@@ -50,11 +50,7 @@ class MatchDetailPresenterTest {
         matchDetailPresenter = MatchDetailPresenter()
         matchDetailPresenter.onAttach(matchDetailView)
         items = mutableListOf()
-        item = MatchDetail("584436", "Real Madrid", "Levante", null, null,
-                null, null, null, null, null,
-                null, null, null, null, null,
-                null, null, null, null, null,
-                null, null, null, null, null, null, 9,null)
+        item = MatchDetail("584436", "Real Madrid", "Levante")
         items.add(item)
         response = MatchDetailResponse(items)
 

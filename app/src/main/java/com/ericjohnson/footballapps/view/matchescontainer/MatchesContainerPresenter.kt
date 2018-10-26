@@ -27,7 +27,7 @@ class MatchesContainerPresenter<V : MatchesContainerView> : BasePresenter<V>(),
 
         val leagueList: MutableList<League> = mutableListOf()
         for (league: League in leagueResponse.league) {
-            if (league.strSport == AppConstants.SOCCER) {
+            if (league.strSport == AppConstants.SOCCER && league.strLeague != AppConstants.NO_LEAGUE) {
                 leagueList.add(league)
             }
         }

@@ -3,23 +3,21 @@ package com.ericjohnson.footballapps.view.search
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.text.TextUtils
 import android.view.MenuItem
 import android.view.View
 import com.ericjohnson.footballapps.R
-import com.ericjohnson.footballapps.R.id.*
 import com.ericjohnson.footballapps.adapter.recyclerviewadapter.MatchScheduleAdapter
 import com.ericjohnson.footballapps.adapter.recyclerviewadapter.TeamsAdapter
 import com.ericjohnson.footballapps.data.api.response.SearchedMatchResponse
 import com.ericjohnson.footballapps.data.api.response.TeamListResponse
 import com.ericjohnson.footballapps.utils.AppConstants
+import com.ericjohnson.footballapps.utils.EspressoIdlingResource
 import com.ericjohnson.footballapps.utils.ScheduleType
 import com.ericjohnson.footballapps.utils.SearchType
 import com.ericjohnson.footballapps.view.matchDetail.MatchDetailActivity
 import com.ericjohnson.footballapps.view.teamdetail.TeamDetailActivity
 import kotlinx.android.synthetic.main.activity_search.*
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 
 class SearchActivity : AppCompatActivity(), SearchView {
 
@@ -100,8 +98,8 @@ class SearchActivity : AppCompatActivity(), SearchView {
                 }
 
                 when (searchType) {
-                    SearchType.teams -> presenter.getTeam(query)
-                    else -> presenter.getMathes(query)
+                    SearchType.teams -> getTeams(query)
+                    else -> getMatches(query)
                 }
 
                 return true
@@ -110,10 +108,20 @@ class SearchActivity : AppCompatActivity(), SearchView {
 
         btn_retry.setOnClickListener {
             when (searchType) {
-                SearchType.teams -> presenter.getTeam(query)
-                else -> presenter.getMathes(query)
+                SearchType.teams -> getTeams(query)
+                else -> getMatches(query)
             }
         }
+    }
+
+    private fun getTeams(query:String){
+        EspressoIdlingResource.increment()
+        presenter.getTeam(query)
+    }
+
+    private fun getMatches(query:String){
+        EspressoIdlingResource.increment()
+        presenter.getMatches(query)
     }
 
     override fun onDestroy() {
@@ -137,20 +145,21 @@ class SearchActivity : AppCompatActivity(), SearchView {
     }
 
     override fun setMatchesResult(searchedMatchResponse: SearchedMatchResponse) {
-        if (searchedMatchResponse.event == null) {
+        if ( searchedMatchResponse.event == null) {
             scheduleAdapter.clearItem()
         } else {
             scheduleAdapter.addAllItem(searchedMatchResponse.event)
         }
+        EspressoIdlingResource.decrement()
     }
 
     override fun setTeamsResult(teamListResponse: TeamListResponse) {
-
         if (teamListResponse.teams == null) {
             teamListAdapter.clearItem()
         } else {
             teamListAdapter.addAllItem(teamListResponse.teams)
         }
+        EspressoIdlingResource.decrement()
     }
 
     override fun onAttachView() {

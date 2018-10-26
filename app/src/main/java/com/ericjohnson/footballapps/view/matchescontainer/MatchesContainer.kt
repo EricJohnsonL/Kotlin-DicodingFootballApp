@@ -12,6 +12,7 @@ import com.ericjohnson.footballapps.adapter.pageradapter.MatchesPagerAdapter
 import com.ericjohnson.footballapps.data.api.League
 import com.ericjohnson.footballapps.data.api.response.LeagueResponse
 import com.ericjohnson.footballapps.event.LeagueChangedEvent
+import com.ericjohnson.footballapps.utils.EspressoIdlingResource
 import com.ericjohnson.footballapps.utils.LeagueUtil
 import com.ericjohnson.footballapps.utils.ScheduleType
 import com.ericjohnson.footballapps.view.matchescontainer.schedule.ScheduleFragment
@@ -44,16 +45,9 @@ class MatchesContainer : Fragment(), MatchesContainerView, AdapterView.OnItemSel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        EspressoIdlingResource.increment()
         matchesContainerPresenter.getLeague()
     }
-
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        val league: League = parent?.getItemAtPosition(position) as League
-        leagueId = league.idLeague
-        EventBus.getDefault().post(LeagueChangedEvent(leagueId))
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>?) = Unit
 
     override fun onDestroy() {
         super.onDestroy()
@@ -91,22 +85,33 @@ class MatchesContainer : Fragment(), MatchesContainerView, AdapterView.OnItemSel
         else -> ll_matches_container.visibility = View.GONE
     }
 
+    override fun showError(isShown: Boolean) = when {
+        isShown -> {
+            ev_error_matches_container.visibility = View.VISIBLE
+            EspressoIdlingResource.decrement()
+        }
+        else -> ev_error_matches_container.visibility = View.GONE
+    }
+
     override fun setLeague(leagueResponse: LeagueResponse) {
         leagueManualAdapter = ArrayAdapter(ctx, android.R.layout.simple_spinner_dropdown_item, leagueResponse.league)
         leagueManualAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spn_league.adapter = leagueManualAdapter
+        EspressoIdlingResource.decrement()
 
         val league: League = spn_league.getItemAtPosition(0) as League
         leagueId = league.idLeague
         EventBus.getDefault().post(LeagueChangedEvent(leagueId))
-
         spn_league.onItemSelectedListener = this
         setupViewPager()
     }
 
-    override fun showError(isShown: Boolean) = when {
-        isShown -> ev_error_matches_container.visibility = View.VISIBLE
-        else -> ev_error_matches_container.visibility = View.GONE
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        val league: League = parent?.getItemAtPosition(position) as League
+        leagueId = league.idLeague
+        EventBus.getDefault().post(LeagueChangedEvent(leagueId))
     }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) = Unit
 
 }

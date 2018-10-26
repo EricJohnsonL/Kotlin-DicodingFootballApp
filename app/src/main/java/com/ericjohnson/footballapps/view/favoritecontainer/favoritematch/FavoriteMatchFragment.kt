@@ -56,6 +56,7 @@ class FavoriteMatchFragment : Fragment(), FavoriteMatchView, AnkoComponent<Conte
 
                 relativeLayout {
                     rvFavoriteMatch = recyclerView {
+                        id=R.id.rv_fav_match
                         lparams(width = matchParent, height = wrapContent)
                         visibility = View.GONE
                         hasFixedSize()

@@ -14,7 +14,7 @@ import com.ericjohnson.footballapps.domain.GetMatchDetailInteractor
  */
 
 class MatchDetailPresenter<V : MatchDetailView> : BasePresenter<V>(), IMatchDetailPresenter<V>,
-        GetHomeTeamDetailInteractor.GetHomeTeamBadgeInteractorListener, GetAwayTeamDetailInteractor.GetAwayTeamBadgeInteractorListener, GetMatchDetailInteractor.GetMatchDetailInteractorListener {
+        GetHomeTeamDetailInteractor.GetHomeTeamDetailInteractorListener, GetAwayTeamDetailInteractor.GetAwayTeamDetailInteractorListener, GetMatchDetailInteractor.GetMatchDetailInteractorListener {
 
     private val getHomeTeamDetailInteractor: GetHomeTeamDetailInteractor = GetHomeTeamDetailInteractor(this)
 

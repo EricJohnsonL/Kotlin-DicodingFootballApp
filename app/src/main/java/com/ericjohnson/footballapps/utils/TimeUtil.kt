@@ -19,7 +19,7 @@ class TimeUtil {
 
             when {
                 checkDateTimeFormatWithZone(dateTime) -> formattedDate = formatter.parse(dateTime)
-                checkDateTimeFormatDefault(dateTime) -> formattedDate = formatter.parse("$dateTime+00:00")
+                checkDateTimeFormatDefault(dateTime) -> formattedDate = formatter.parse("$dateTime+0000")
             }
 
             val dayFormatter = SimpleDateFormat("EEEE, d MMMM yyyy-HH:mm", INDONESIA)
@@ -33,7 +33,7 @@ class TimeUtil {
 
             when {
                 checkDateTimeFormatWithZone(dateTime) -> formattedDate = formatter.parse(dateTime)
-                checkDateTimeFormatDefault(dateTime) -> formattedDate = formatter.parse("$dateTime+00:00")
+                checkDateTimeFormatDefault(dateTime) -> formattedDate = formatter.parse("$dateTime+0000")
             }
 
             val dayFormatter = SimpleDateFormat("yyyy MM d HH mm ss", INDONESIA)

@@ -9,8 +9,10 @@ import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.RecyclerView
+import com.ericjohnson.footballapps.data.api.League
 import com.ericjohnson.footballapps.utils.EspressoIdlingResource
 import com.ericjohnson.footballapps.view.mainactivity.MainActivity
+import org.hamcrest.CoreMatchers
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -41,14 +43,18 @@ class NextMatchTest {
 
     @Test
     fun testNextMatchesBehavior() {
-        Espresso.onView(ViewMatchers.withId(R.id.bottom_nav))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.menu_next_match)).perform(ViewActions.click())
-
-        Espresso.onView(ViewMatchers.withId(R.id.srl_schedule)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.rv_schedule_list)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withText("Real Madrid")).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withText("Real Madrid")).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.bottom_nav)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.rl_matches_container)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.vp_match_schedule)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.spn_league)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(CoreMatchers.allOf(ViewMatchers.isDisplayed(), ViewMatchers.withId(R.id.srl_schedule))).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(CoreMatchers.allOf(ViewMatchers.isDisplayed(), ViewMatchers.withId(R.id.rv_schedule_list))).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.vp_match_schedule)).perform(ViewActions.swipeLeft())
+        Thread.sleep(500)
+        Espresso.onView(ViewMatchers.withId(R.id.spn_league)).perform(ViewActions.click())
+        Espresso.onData((CoreMatchers.instanceOf(League::class.java))).atPosition(6).perform(ViewActions.click())
+        Espresso.onView(CoreMatchers.allOf(ViewMatchers.isDisplayed(), ViewMatchers.withId(R.id.rv_schedule_list))).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(10))
+        Espresso.onView(CoreMatchers.allOf(ViewMatchers.isDisplayed(), ViewMatchers.withId(R.id.rv_schedule_list))).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(10, ViewActions.click()))
         Espresso.onView(ViewMatchers.withId(R.id.add_to_favorites)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Espresso.onView(ViewMatchers.withId(R.id.add_to_favorites)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withText("Added to favorite"))
@@ -57,13 +63,20 @@ class NextMatchTest {
 
         Espresso.onView(ViewMatchers.withId(R.id.bottom_nav))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.menu_fav_match)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.menu_next_match)).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.menu_fav)).perform(ViewActions.click())
+        Thread.sleep(500)
+        Espresso.onView(ViewMatchers.withId(R.id.menu_matches)).perform(ViewActions.click())
 
-        Espresso.onView(ViewMatchers.withId(R.id.srl_schedule)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.rv_schedule_list)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withText("Real Madrid")).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withText("Real Madrid")).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.rl_matches_container)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.vp_match_schedule)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.spn_league)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(CoreMatchers.allOf(ViewMatchers.isDisplayed(), ViewMatchers.withId(R.id.srl_schedule))).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(CoreMatchers.allOf(ViewMatchers.isDisplayed(), ViewMatchers.withId(R.id.rv_schedule_list))).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.vp_match_schedule)).perform(ViewActions.swipeLeft())
+        Espresso.onView(ViewMatchers.withId(R.id.spn_league)).perform(ViewActions.click())
+        Espresso.onData((CoreMatchers.instanceOf(League::class.java))).atPosition(6).perform(ViewActions.click())
+        Espresso.onView(CoreMatchers.allOf(ViewMatchers.isDisplayed(), ViewMatchers.withId(R.id.rv_schedule_list))).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(10))
+        Espresso.onView(CoreMatchers.allOf(ViewMatchers.isDisplayed(), ViewMatchers.withId(R.id.rv_schedule_list))).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(10, ViewActions.click()))
         Espresso.onView(ViewMatchers.withId(R.id.add_to_favorites)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Espresso.onView(ViewMatchers.withId(R.id.add_to_favorites)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withText("Removed from favorite"))
@@ -72,26 +85,7 @@ class NextMatchTest {
 
         Espresso.onView(ViewMatchers.withId(R.id.bottom_nav))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.menu_fav_match)).perform(ViewActions.click())
-    }
-
-    @Test
-    fun testRecyclerViewBehavior() {
-        Espresso.onView(ViewMatchers.withId(R.id.bottom_nav))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.menu_next_match)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.rv_schedule_list)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.rv_schedule_list)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(10))
-        Espresso.onView(ViewMatchers.withId(R.id.rv_schedule_list)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(10, ViewActions.click()))
-        Espresso.pressBack()
-    }
-
-    @Test
-    fun testSwipeRefreshLayout() {
-        Espresso.onView(ViewMatchers.withId(R.id.bottom_nav))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.menu_next_match)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.srl_schedule)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.menu_fav)).perform(ViewActions.click())
     }
 
 }

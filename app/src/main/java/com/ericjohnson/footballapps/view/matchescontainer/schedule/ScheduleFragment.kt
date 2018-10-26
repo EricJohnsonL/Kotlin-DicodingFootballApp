@@ -93,7 +93,7 @@ class ScheduleFragment : Fragment(), ScheduleView, SwipeRefreshLayout.OnRefreshL
     }
 
     private fun addToCalender(matchDetail: MatchDetail) {
-        val intent: Intent = Intent(Intent.ACTION_INSERT)
+        val intent = Intent(Intent.ACTION_INSERT)
         intent.data = CalendarContract.Events.CONTENT_URI
         intent.putExtra(Events.TITLE, "${matchDetail.strHomeTeam} vs ${matchDetail.strAwayTeam}")
 

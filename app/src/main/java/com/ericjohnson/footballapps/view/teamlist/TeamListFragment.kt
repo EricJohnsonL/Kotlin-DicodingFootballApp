@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_team_list.*
 import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.startActivity
 
-class TeamListFragment : Fragment(), TeamListView, AdapterView.OnItemSelectedListener, SwipeRefreshLayout.OnRefreshListener, (TeamList) -> Unit {
+class TeamListFragment : Fragment(), TeamListView, AdapterView.OnItemSelectedListener, SwipeRefreshLayout.OnRefreshListener {
 
     private val teamListPresenter: ITeamListPresenter<TeamListView> = TeamListPresenter()
 
@@ -52,6 +52,7 @@ class TeamListFragment : Fragment(), TeamListView, AdapterView.OnItemSelectedLis
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        EspressoIdlingResource.increment()
         teamListPresenter.getLeague()
     }
 
@@ -63,12 +64,6 @@ class TeamListFragment : Fragment(), TeamListView, AdapterView.OnItemSelectedLis
         showEmptyTeam(false)
         requestTeamList(leagueId)
     }
-
-    override fun invoke(teamList: TeamList) {
-        startActivity<TeamDetailActivity>(AppConstants.KEY_TEAM_DETAIL to teamList)
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>?) = Unit
 
     private fun requestTeamList(leagueId: String) {
         EspressoIdlingResource.increment()
@@ -99,19 +94,21 @@ class TeamListFragment : Fragment(), TeamListView, AdapterView.OnItemSelectedLis
         super.onDestroy()
     }
 
-
     override fun setLeague(leagueResponse: LeagueResponse) {
         leagueManualAdapter = ArrayAdapter(ctx, android.R.layout.simple_spinner_dropdown_item, leagueResponse.league)
         leagueManualAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spn_league.adapter = leagueManualAdapter
         spn_league.onItemSelectedListener = this
+        EspressoIdlingResource.decrement()
 
         leagueId = (spn_league.getItemAtPosition(0) as League).idLeague
 
         srl_teams.setOnRefreshListener(this)
 
         teamsAdapter = TeamsAdapter(ctx, mutableListOf())
-        teamsAdapter.clickListener = this
+        teamsAdapter.clickListener = {
+            startActivity<TeamDetailActivity>(AppConstants.KEY_TEAM_DETAIL to it)
+        }
         rv_teams.layoutManager = LinearLayoutManager(ctx)
         rv_teams.hasFixedSize()
         rv_teams.adapter = teamsAdapter
@@ -127,6 +124,8 @@ class TeamListFragment : Fragment(), TeamListView, AdapterView.OnItemSelectedLis
         leagueId = league.idLeague
         onRefresh()
     }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) = Unit
 
     override fun showTeamList(isShown: Boolean) = when {
         isShown -> ll_team_list.visibility = View.VISIBLE

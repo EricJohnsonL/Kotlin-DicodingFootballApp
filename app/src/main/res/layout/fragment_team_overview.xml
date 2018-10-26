@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nsv_team_overview"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -51,7 +52,7 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:id="@+id/ll_team_overview"
+            android:id="@+id/rl_team_overview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone">

@@ -54,7 +54,7 @@ class SearchPresenter<V : SearchView> : BasePresenter<V>(),
     //endregion
 
     //region Matches
-    override fun getMathes(query: String) {
+    override fun getMatches(query: String) {
         view?.showProgressBar(true)
         view?.showRecyclerView(false)
         view?.showErrorView(false)

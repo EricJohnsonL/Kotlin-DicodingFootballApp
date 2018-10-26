@@ -54,9 +54,10 @@ class FavoriteTeamFragment : Fragment(), FavoriteTeamView, AnkoComponent<Context
             lparams(width = matchParent, height = matchParent)
 
             srlFavoriteTeam = swipeRefreshLayout {
-
+                id=R.id.srl_fav_team
                 relativeLayout {
                     rvFavoriteTeam = recyclerView {
+                        id = R.id.rv_fav_team
                         lparams(width = matchParent, height = wrapContent)
                         visibility = View.GONE
                         hasFixedSize()

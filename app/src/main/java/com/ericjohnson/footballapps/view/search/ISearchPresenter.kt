@@ -10,5 +10,5 @@ interface ISearchPresenter<V : IBaseView> : IBasePresenter<V> {
 
     fun getTeam(query:String)
 
-    fun getMathes(query: String)
+    fun getMatches(query: String)
 }

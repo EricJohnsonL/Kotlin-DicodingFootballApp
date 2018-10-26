@@ -36,32 +36,32 @@ class FavoriteMatchTest {
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.getIdlingResource())
     }
 
-    @Test
-    fun testFavMatchesBehavior() {
-        Espresso.onView(ViewMatchers.withId(R.id.bottom_nav))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.menu_fav_match)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.menu_prev_match)).perform(ViewActions.click())
-
-        Espresso.onView(ViewMatchers.withId(R.id.srl_schedule)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.rv_schedule_list)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withText("Real Madrid")).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withText("Real Madrid")).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.add_to_favorites)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.add_to_favorites)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withText("Added to favorite"))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.pressBack()
-
-        Espresso.onView(ViewMatchers.withId(R.id.bottom_nav))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.menu_fav_match)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withText("Real Madrid")).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withText("Real Madrid")).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.add_to_favorites)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.add_to_favorites)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withText("Removed from favorite"))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.pressBack()
-    }
+//    @Test
+//    fun testFavMatchesBehavior() {
+//        Espresso.onView(ViewMatchers.withId(R.id.bottom_nav))
+//                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//        Espresso.onView(ViewMatchers.withId(R.id.menu_fav_match)).perform(ViewActions.click())
+//        Espresso.onView(ViewMatchers.withId(R.id.menu_prev_match)).perform(ViewActions.click())
+//
+//        Espresso.onView(ViewMatchers.withId(R.id.srl_schedule)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//        Espresso.onView(ViewMatchers.withId(R.id.rv_schedule_list)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//        Espresso.onView(ViewMatchers.withText("Real Madrid")).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//        Espresso.onView(ViewMatchers.withText("Real Madrid")).perform(ViewActions.click())
+//        Espresso.onView(ViewMatchers.withId(R.id.add_to_favorites)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//        Espresso.onView(ViewMatchers.withId(R.id.add_to_favorites)).perform(ViewActions.click())
+//        Espresso.onView(ViewMatchers.withText("Added to favorite"))
+//                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//        Espresso.pressBack()
+//
+//        Espresso.onView(ViewMatchers.withId(R.id.bottom_nav))
+//                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//        Espresso.onView(ViewMatchers.withId(R.id.menu_fav_match)).perform(ViewActions.click())
+//        Espresso.onView(ViewMatchers.withText("Real Madrid")).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//        Espresso.onView(ViewMatchers.withText("Real Madrid")).perform(ViewActions.click())
+//        Espresso.onView(ViewMatchers.withId(R.id.add_to_favorites)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//        Espresso.onView(ViewMatchers.withId(R.id.add_to_favorites)).perform(ViewActions.click())
+//        Espresso.onView(ViewMatchers.withText("Removed from favorite"))
+//                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//        Espresso.pressBack()
+//    }
 }

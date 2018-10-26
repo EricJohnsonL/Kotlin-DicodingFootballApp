@@ -8,7 +8,7 @@ import com.ericjohnson.footballapps.domain.GetHomeTeamDetailInteractor
  * Created by johnson on 10/23/18.
  */
 class TeamOverviewPresenter<V : TeamOverviewView> : BasePresenter<V>(),
-        ITeamOverviewPresenter<V>, GetHomeTeamDetailInteractor.GetHomeTeamBadgeInteractorListener {
+        ITeamOverviewPresenter<V>, GetHomeTeamDetailInteractor.GetHomeTeamDetailInteractorListener {
 
     private val getHomeTeamDetailInteractor: GetHomeTeamDetailInteractor = GetHomeTeamDetailInteractor(this)
 

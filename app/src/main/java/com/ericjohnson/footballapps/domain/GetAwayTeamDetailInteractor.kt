@@ -10,7 +10,7 @@ import retrofit2.Response
  * Created by johnson on 06/10/18.
  */
 
-class GetAwayTeamDetailInteractor(private val getAwayTeamBadgeInteractorListener: GetAwayTeamBadgeInteractorListener) : Callback<TeamDetailResponse> {
+class GetAwayTeamDetailInteractor(private val getAwayTeamDetailInteractorListener: GetAwayTeamDetailInteractorListener) : Callback<TeamDetailResponse> {
 
     private fun getInteractor(): Interactor = Interactor()
 
@@ -20,17 +20,17 @@ class GetAwayTeamDetailInteractor(private val getAwayTeamBadgeInteractorListener
 
     override fun onResponse(call: Call<TeamDetailResponse>, response: Response<TeamDetailResponse>) {
         if (response.isSuccessful) {
-            response.body()?.let { getAwayTeamBadgeInteractorListener.onGetAwayTeamDetailSuccess(it) }
+            response.body()?.let { getAwayTeamDetailInteractorListener.onGetAwayTeamDetailSuccess(it) }
         } else {
-            getAwayTeamBadgeInteractorListener.onGetAwayTeamDetailFailed(response.message())
+            getAwayTeamDetailInteractorListener.onGetAwayTeamDetailFailed(response.message())
         }
     }
 
     override fun onFailure(call: Call<TeamDetailResponse>, t: Throwable) {
-        getAwayTeamBadgeInteractorListener.onGetAwayTeamDetailFailed(t.message.toString())
+        getAwayTeamDetailInteractorListener.onGetAwayTeamDetailFailed(t.message.toString())
     }
 
-    interface GetAwayTeamBadgeInteractorListener {
+    interface GetAwayTeamDetailInteractorListener {
 
         fun onGetAwayTeamDetailSuccess(teamDetailResponse: TeamDetailResponse)
 

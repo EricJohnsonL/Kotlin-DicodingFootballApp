@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.ericjohnson.footballapps.R
 import com.ericjohnson.footballapps.data.api.TeamDetail
 import com.ericjohnson.footballapps.utils.AppConstants
+import com.ericjohnson.footballapps.utils.EspressoIdlingResource
 import kotlinx.android.synthetic.main.fragment_team_overview.*
 
 
@@ -44,8 +45,8 @@ class TeamOverviewFragment : Fragment(), TeamOverviewView {
         return inflater.inflate(R.layout.fragment_team_overview, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         requestTeamOverview()
         btn_retry.setOnClickListener {
             requestTeamOverview()
@@ -53,6 +54,7 @@ class TeamOverviewFragment : Fragment(), TeamOverviewView {
     }
 
     private fun requestTeamOverview() {
+        EspressoIdlingResource.increment()
         presenter.getTeamOverview(teamId)
     }
 
@@ -67,8 +69,8 @@ class TeamOverviewFragment : Fragment(), TeamOverviewView {
     }
 
     override fun showTeamOverview(isShown: Boolean) = when {
-        isShown -> ll_team_overview.visibility = View.VISIBLE
-        else -> ll_team_overview.visibility = View.GONE
+        isShown -> rl_team_overview.visibility = View.VISIBLE
+        else -> rl_team_overview.visibility = View.GONE
     }
 
     override fun setTeamOverview(teamDetail: TeamDetail) {
@@ -106,11 +108,17 @@ class TeamOverviewFragment : Fragment(), TeamOverviewView {
                 startActivity(intent)
             }
         }
+        EspressoIdlingResource.decrement()
     }
 
     override fun showError(isShown: Boolean) = when {
-        isShown -> ev_error_team_overview.visibility = View.VISIBLE
-        else -> ev_error_team_overview.visibility = View.GONE
+        isShown -> {
+            ev_error_team_overview.visibility = View.VISIBLE
+            EspressoIdlingResource.decrement()
+        }
+        else -> {
+            ev_error_team_overview.visibility = View.GONE
+        }
     }
 
     override fun onAttachView() {
